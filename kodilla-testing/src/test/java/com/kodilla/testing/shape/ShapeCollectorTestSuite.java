@@ -26,77 +26,84 @@ public class ShapeCollectorTestSuite {
         testCounter++;
         System.out.println("Test number: " + testCounter);
     }
+    @Nested
+    @DisplayName("Tests for Add and Remove")
+    class AddRemove {
+        @Test
+        public void testAddFigure() {
+            //given
+            ShapeCollector testList = new ShapeCollector(new ArrayList<>(Arrays.asList(new Circle(23),
+                    new Triangle(12, 18))));
+            ShapeCollector expectedList = new ShapeCollector(new ArrayList<>(Arrays.asList(new Circle(23),
+                    new Triangle(12, 18), new Square(12))));
+            int expectedListSize = expectedList.getShapeList().size();
 
-    @Test
-    public void testAddFigure() {
-        //given
-        ShapeCollector testList = new ShapeCollector(new ArrayList<>(Arrays.asList(new Circle(23),
-                new Triangle(12, 18))));
-        ShapeCollector expectedList = new ShapeCollector(new ArrayList<>(Arrays.asList(new Circle(23),
-                new Triangle(12, 18), new Square(12))));
-        int expectedListSize = expectedList.getShapeList().size();
+            //when
+            testList.addFigure(new Square(12));
+            int actualListSize = testList.getShapeList().size();
 
-        //when
-        testList.addFigure(new Square(12));
-        int actualListSize = testList.getShapeList().size();
-
-        //then
-        Assertions.assertEquals(expectedListSize, actualListSize);
-    }
-
-    @Test
-    public void testRemoveFigure() {
-        //given
-        Circle circle = new Circle(23);
-        Triangle triangle = new Triangle(12, 18);
-        Square square = new Square(12);
-
-        ShapeCollector testList = new ShapeCollector(new ArrayList<>(Arrays.asList(circle, triangle, square)));
-        ShapeCollector expectedList = new ShapeCollector(new ArrayList<>(Arrays.asList(circle, triangle)));
-
-        int expectedListSize = expectedList.getShapeList().size();
-
-        //when
-        testList.removeFigure(square);
-        int actualListSize = testList.getShapeList().size();
-
-        //then
-        Assertions.assertEquals(expectedListSize, actualListSize);
-    }
-
-    @Test
-    public void testGetFigure() {
-
-        //given
-        Circle circle = new Circle(23);
-        Triangle triangle = new Triangle(12, 18);
-        Square square = new Square(12);
-
-        ShapeCollector testList = new ShapeCollector(new ArrayList<>(Arrays.asList(circle, triangle, square)));
-
-         //when
-        Shape shape1 = testList.getFigure(0);
-        Shape shape2 = testList.getFigure(1);
-        Shape shape3 = testList.getFigure(2);
-
-        //then
-        Assertions.assertEquals(circle, shape1);
-        Assertions.assertEquals(triangle, shape2);
-        Assertions.assertEquals(square, shape3);
+            //then
+            Assertions.assertEquals(expectedListSize, actualListSize);
         }
 
-    @Test
-    public void testShowFigures() {
-        Circle circle = new Circle(23);
-        Triangle triangle = new Triangle(12,18);
-        Square square = new Square(12);
+        @Test
+        public void testRemoveFigure() {
+            //given
+            Circle circle = new Circle(23);
+            Triangle triangle = new Triangle(12, 18);
+            Square square = new Square(12);
 
-        ArrayList<Shape> testList = new ArrayList<>(Arrays.asList(circle, triangle, square));
+            ShapeCollector testList = new ShapeCollector(new ArrayList<>(Arrays.asList(circle, triangle, square)));
+            ShapeCollector expectedList = new ShapeCollector(new ArrayList<>(Arrays.asList(circle, triangle)));
 
-        ShapeCollector shapeCollection = new ShapeCollector(testList);
+            int expectedListSize = expectedList.getShapeList().size();
 
-        ArrayList<Shape> result = new ArrayList<>(shapeCollection.showFigures());
-        Assertions.assertEquals(testList, result);
+            //when
+            testList.removeFigure(square);
+            int actualListSize = testList.getShapeList().size();
+
+            //then
+            Assertions.assertEquals(expectedListSize, actualListSize);
         }
+    }
+
+    @Nested
+    @DisplayName("Test fot Get and Show Figures")
+    class GetShow {
+        @Test
+        public void testGetFigure() {
+
+            //given
+            Circle circle = new Circle(23);
+            Triangle triangle = new Triangle(12, 18);
+            Square square = new Square(12);
+
+            ShapeCollector testList = new ShapeCollector(new ArrayList<>(Arrays.asList(circle, triangle, square)));
+
+            //when
+            Shape shape1 = testList.getFigure(0);
+            Shape shape2 = testList.getFigure(1);
+            Shape shape3 = testList.getFigure(2);
+
+            //then
+            Assertions.assertEquals(circle, shape1);
+            Assertions.assertEquals(triangle, shape2);
+            Assertions.assertEquals(square, shape3);
+        }
+
+        @Test
+        public void testShowFigures() {
+            Circle circle = new Circle(23);
+            Triangle triangle = new Triangle(12, 18);
+            Square square = new Square(12);
+
+            ArrayList<Shape> testList = new ArrayList<>(Arrays.asList(circle, triangle, square));
+
+            ShapeCollector shapeCollection = new ShapeCollector(testList);
+
+            ArrayList<Shape> result = new ArrayList<>(shapeCollection.showFigures());
+            Assertions.assertEquals(testList, result);
+        }
+    }
     }
 
